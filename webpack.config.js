@@ -19,6 +19,8 @@ module.exports = {
   //   filename: '[name].js'
   // },
   devServer: {
+    contentBase: path.join(__dirname, 'app'),
+    watchContentBase: true,
     historyApiFallback: true,
     hot: true,
     inline: true,

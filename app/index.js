@@ -1,6 +1,7 @@
 new Vue({
   el: '#app',
   data: {
+    msg: 'Hello Word!',
     newTodo: '',
     todos: [
       {text: 'Learn Webpacke'},
