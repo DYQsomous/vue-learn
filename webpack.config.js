@@ -39,6 +39,7 @@ module.exports = {
       title: 'Hello Vue.js world!',
       template: path.resolve(APP_PATH, 'index.html'),
       filename: 'index.html',
+      inject: 'body'
       // chunks: ['app', 'vendors']
     }),
   ],

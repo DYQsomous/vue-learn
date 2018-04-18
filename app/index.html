@@ -1,29 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>vue learn</title>
-</head>
-<style>
-	input {
-		border: 1px solid red;
-	}
-</style>
-<script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
-<body>
-	<div id="app">
-		<input v-model="newTodo" v-on:keyup.enter="addTodo">
-		<ul>
-			<li v-for="(todo, index) in todos">
-				<span> {{todo.text}}</span>
-				<button v-on:click="removeTodo(index)"> X </button>
-			</li>
-		</ul>
+<script src="https://npmcdn.com/vue/dist/vue.js"></script>
 
-		<span>Message: {{ msg }} </span>
-		dfsafu
-	</div>
-</body>
-</html>
+<div id="app">
+	<p> {{ message }} </p>
+	<input type="text" v-model="message">
+
+	<ul>
+		<li v-for="item of todo"> {{item.text}} </li>
+	</ul>
+
+	<button @click="reverseMessage()">Reserve Messages</button>
+
+	<p> {{message ? 'OK' : 'NO'}} </p>
+	<p> {{message.split('').reverse().join('')}} </p>
+
+	<a :href="url" target="_blank">click me</a>
+</div>
+
+<div id="app2">
+	<input type="text" v-model="newTodo" v-on:keyup.enter="addTodo">
+	<ul>
+		<li v-for="todo of todos">
+			<span> {{ todo.text }} </span>
+			<span v-on:click="removeTodo($index)">X</span>
+		</li>
+	</ul>
+
+	<input type="text" v-model="a">
+	<p>b: {{b}} </p>
+
+	First Name:
+	<input type="text" v-model="firstName">
+	<br> Last Name:
+	<input type="text" v-model="lastName">
+	<br> Full Name:
+	<input type="text" v-model="fullName">
+	<br>
+	<button @click="setFullName()">set fullname</button>
+
+	<div class="static" :class="classObject">classObjext</div>
+</div>
