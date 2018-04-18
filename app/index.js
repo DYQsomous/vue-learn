@@ -1,3 +1,6 @@
+require('./index.scss');
+var Vue = require('vue/dist/vue.min.js');
+
 var app1 = new Vue({
   el: '#app',
   data: {

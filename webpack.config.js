@@ -19,20 +19,48 @@ module.exports = {
   //   filename: '[name].js'
   // },
   devServer: {
-    contentBase: path.join(__dirname, 'app'),
+    contentBase: APP_PATH,
     watchContentBase: true,
     historyApiFallback: true,
     hot: true,
     inline: true,
     progress: true
   },
-  // module: {
-  //   rules: [{
-  //     test: /\.sass$/,
-  //     exclude: /node_modules/,
-  //     use: ['styler-loader', 'css-loader', 'sass-loader']
-  //   }]
-  // },
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true,
+              includePaths: [APP_PATH, '~bootstrap/scss']
+            }
+          }
+        ]
+      },
+      // {
+      //   test: /\.css$/,
+      //   use: [
+      //     'style-loader',
+      //     {
+      //       loader: 'css-loader',
+      //       options: {
+      //         sourceMap: true
+      //       }
+      //     }
+      //   ]
+      // }
+    ]
+  },
   plugins: [
     new CleanWebpackPlugin(['build']),
     new HtmlwebPackagePlugin ({
