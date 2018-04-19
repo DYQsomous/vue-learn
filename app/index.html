@@ -1,12 +1,12 @@
 <div id="app">
 	<p> {{ message }} </p>
-	<input type="text" v-model="message">
+	<input class="border" type="text" v-model="message">
 
 	<ul>
 		<li v-for="item of todo"> {{item.text}} </li>
 	</ul>
 
-	<button @click="reverseMessage()">Reserve Messages</button>
+	<button class="btn" @click="reverseMessage()">Reserve Messages</button>
 
 	<p> {{message ? 'OK' : 'NO'}} </p>
 	<p> {{message.split('').reverse().join('')}} </p>
@@ -15,7 +15,7 @@
 </div>
 
 <div id="app2">
-	<input type="text" v-model="newTodo" v-on:keyup.enter="addTodo">
+	<input class="border" type="text" v-model="newTodo" v-on:keyup.enter="addTodo">
 	<ul>
 		<li v-for="todo of todos">
 			<span> {{ todo.text }} </span>
@@ -23,17 +23,19 @@
 		</li>
 	</ul>
 
-	<input type="text" v-model="a">
+	<input class="border" type="text" v-model="a">
 	<p>b: {{b}} </p>
 
 	First Name:
-	<input type="text" v-model="firstName">
+	<input class="border" type="text" v-model="firstName">
 	<br> Last Name:
-	<input type="text" v-model="lastName">
+	<input class="border" type="text" v-model="lastName">
 	<br> Full Name:
-	<input type="text" v-model="fullName">
+	<input class="border" type="text" v-model="fullName">
 	<br>
-	<button @click="setFullName()">set fullname</button>
+	<button class="btn" @click="setFullName()">set fullname</button>
 
 	<div class="static" :class="classObject">classObjext</div>
+
+	<div class="border" :style="styleObject"></div>
 </div>

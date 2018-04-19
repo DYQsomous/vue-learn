@@ -74,6 +74,13 @@ var app2 = new Vue({
         'classB': (this.flag === 2)
       }
       return classObj
+    },
+    styleObject: function () {
+      var styleObj = {
+        'width': (this.flag * 50) + 'px',
+        'height': (this.flag * 80) + 'px'
+      }
+      return styleObj
     }
   }
 })
