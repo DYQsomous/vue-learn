@@ -38,4 +38,15 @@
 	<div class="static" :class="classObject">classObjext</div>
 
 	<div class="border" :style="styleObject"></div>
+
+	<!-- <h1 v-if="flag"> I can show</h1> -->
+	<h1 v-show="!flag"> I can show</h1>
+	<h1 v-else> I can't show</h1>
+
+	<template v-if="flag">
+		<h1>Title</h1>
+		<p>Paragraph 1</p>
+		<p>Paragraph 2</p>
+	</template>
+
 </div>

@@ -30,12 +30,11 @@ var app2 = new Vue({
     newTodo: '',
     todos: [{
       text: 'learn vue'
-    },
-    {
+    },{
       text: 'learn webpack'
-    }
-    ],
-    flag: 2,
+    }],
+    counter: 2,
+    flag: true,
   },
   methods: {
     addTodo: function () {
@@ -70,15 +69,15 @@ var app2 = new Vue({
     },
     classObject: function () {
       var classObj = {
-        'classA': (this.flag === 1),
-        'classB': (this.flag === 2)
+        'classA': (this.counter === 1),
+        'classB': (this.counter === 2)
       }
       return classObj
     },
     styleObject: function () {
       var styleObj = {
-        'width': (this.flag * 50) + 'px',
-        'height': (this.flag * 80) + 'px'
+        'width': (this.counter * 50) + 'px',
+        'height': (this.counter * 80) + 'px'
       }
       return styleObj
     }
