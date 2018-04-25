@@ -26,6 +26,7 @@ module.exports = {
     inline: true,
     progress: true
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -77,4 +78,9 @@ module.exports = {
   //     filename: 'vendors.js'
   //   },
   // }
+  stats: {
+    errorDetails: true,
+    colors: true,
+    reasons: true,
+  }
 }

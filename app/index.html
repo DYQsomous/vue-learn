@@ -6,6 +6,8 @@
 		<li v-for="item of todo"> {{item.text}} </li>
 	</ul>
 
+	<div>do: {{doItem[0].text}} </div>
+
 	<button class="btn" @click="reverseMessage()">Reserve Messages</button>
 
 	<p> {{message ? 'OK' : 'NO'}} </p>
@@ -43,10 +45,23 @@
 	<h1 v-show="!flag"> I can show</h1>
 	<h1 v-else> I can't show</h1>
 
-	<template v-if="flag">
+	<template v-if="!flag">
 		<h1>Title</h1>
 		<p>Paragraph 1</p>
 		<p>Paragraph 2</p>
 	</template>
 
+	<div v-for="(todo, index) in todos">
+		{{index}} - {{todo.text}}
+	</div>
+
+	<div v-for="todo of todos">
+		{{todo.text}}
+	</div>
+
+	<ul>
+		<template v-for="(todo, index) in todos">
+			<span> {{index}} </span> <span> {{todo.text}} </span>
+		</template>
+	</ul>
 </div>
