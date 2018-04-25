@@ -79,5 +79,27 @@
 	<span v-for="num in 10">
 		{{ num }}
 	</span>
+</div>
 
+<!-- open capture mode, fire parent el first
+<div id="app3" @click.capture="testPrevent"> -->
+
+<!-- just fired when click slef, not from child
+<div id="app3" @click.self="testPrevent"> -->
+
+<div id="app3" @click="testPrevent"> 
+	<button @click="greet">greet</button>
+	<button @click="say('Hello')">say Hello</button>
+	<button @click="say('What')">say What</button>
+	<button @click="sayNativeEvent('something!', $event)">say something</button>
+	<!-- prevent browers defalt action but don't stop bubbling -->
+	<a href="http://baidu.com" @click.prevent="say('go to baidu')">baidu</a> 
+	<!-- stop propagation but don't prevent brower default action -->
+	<a href="http://baidu.com" @click.stop="say('go to baidu')">baidu</a>
+	<!-- stop propagation and prevent a href target -->
+	<a href="http://baidu.com" @click.stop.prevent="say('go to baidu')">baidu</a>
+	<!-- keyup by modifiers. i.e. enter/tab/delete/esc/space/up/down/left/right -->
+	<input type="text" @keyup.enter="keyCode">
+	<!-- use costom key modifier alias. -->
+	<!-- <input type="text" @keyup.f1="keyCode"> -->
 </div>
