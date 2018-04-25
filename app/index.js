@@ -62,6 +62,11 @@ var app2 = new Vue({
     },{
       text: 'learn webpack'
     }],
+    guestObj: {
+      FirstName: 'John',
+      LastName: 'Doe',
+      Age: 30
+    },
     counter: 2,
     flag: true,
   },

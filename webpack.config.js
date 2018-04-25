@@ -26,7 +26,7 @@ module.exports = {
     inline: true,
     progress: true
   },
-  devtool: 'source-map',
+  devtool: 'eval-cheap-module-source-map',
   module: {
     rules: [
       {

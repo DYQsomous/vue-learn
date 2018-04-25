@@ -64,4 +64,20 @@
 			<span> {{index}} </span> <span> {{todo.text}} </span>
 		</template>
 	</ul>
+
+	<!-- throw a error when use $key when v-for as this way -->
+	<!-- <ul>
+		<li v-for="value in guestObj" >
+			{{ $key }}: {{value}}
+		</li>
+	</ul> -->
+
+	<div v-for="(key, value) in guestObj" >
+		{{ key }}: {{value}}
+	</div>
+
+	<span v-for="num in 10">
+		{{ num }}
+	</span>
+
 </div>
