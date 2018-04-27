@@ -1,3 +1,5 @@
+// import { SIGABRT } from 'constants';
+
 require('./index.scss');
 var Vue = require('vue/dist/vue.min.js');
 
@@ -58,9 +60,9 @@ var app2 = new Vue({
     lastName: 'Dai',
     newTodo: '',
     todos: [{
-      text: 'learn vue'
+      msg: 'learn vue'
     },{
-      text: 'learn webpack'
+      msg: 'learn webpack'
     }],
     guestObj: {
       FirstName: 'John',
@@ -75,7 +77,7 @@ var app2 = new Vue({
       var content = this.newTodo.trim();
       if (content) {
         this.todos.push({
-          text: content
+          msg: content
         });
         this.newTodo = '';
       }
@@ -120,8 +122,8 @@ var app2 = new Vue({
 
 app2.todos[0] = {}; //can't work at 1.X.X
 console.log('app2.todos: ', app2.todos);
-app2.todos.length = 3;
-console.log('app2.todos: ', app2.todos);
+// app2.todos.length = 3;
+// console.log('app2.todos: ', app2.todos);
 // app2.todos.$set(0, {text: 'msgChanged'}) //can't work at 2.x.x
 // console.log('app2.todos: ', app2.todos);
 // app2.todos.$remove({text: 'learn webpack'}) //can't work at 2.x.x
@@ -132,6 +134,19 @@ var app3 = new Vue({
   el: '#app3',
   data: {
     name: 'Vue.js',
+    picked: '',
+    message: '',
+    lazyMsg: '',
+    selected: 'A',
+    selectedItem: 'B',
+    checked: false,
+    checkedName: [],
+    checkedItem: document.getElementsByClassName('check-item'),
+    options: [
+      { text: 'One', value: 'A' },
+      { text: 'Two', value: 'B' },
+      { text: 'There', value: 'C' },
+    ],
     keyCodes: {
       0: "That key has no keycode",
       3: "break",
@@ -323,6 +338,23 @@ var app3 = new Vue({
     },
     keyCode: function (e) {
       console.log('keyUp on: ', this.keyCodes[e.keyCode]);
+    }
+  },
+  computed: {
+    checkedAll: {
+      get: function () {
+        return this.checkedName.length === this.checkedItem.length;
+      },
+      set: function (checkedAllStatus) {
+        for (let index = 0; index < this.checkedItem.length; index++) {
+          this.checkedItem[index].checked = checkedAllStatus;
+          if (checkedAllStatus) {
+            this.checkedName.push(this.checkedItem[index].value)
+          } else {
+            this.checkedName = [];
+          }
+        }
+      }
     }
   }
 })

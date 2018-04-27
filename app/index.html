@@ -1,105 +1,182 @@
-<div id="app">
-	<p> {{ message }} </p>
-	<input class="border" type="text" v-model="message">
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-6">
+			<div id="app">
+				<p> {{ message }} </p>
+				<input class="border" type="text" v-model="message">
 
-	<ul>
-		<li v-for="item of todo"> {{item.text}} </li>
-	</ul>
+				<ul>
+					<li v-for="item of todo"> {{item.text}} </li>
+				</ul>
 
-	<div>do: {{doItem[0].text}} </div>
+				<div>do: {{doItem[0].text}} </div>
 
-	<button class="btn" @click="reverseMessage()">Reserve Messages</button>
+				<button class="btn" @click="reverseMessage()">Reserve Messages</button>
 
-	<p> {{message ? 'OK' : 'NO'}} </p>
-	<p> {{message.split('').reverse().join('')}} </p>
+				<p> {{message ? 'OK' : 'NO'}} </p>
+				<p> {{message.split('').reverse().join('')}} </p>
 
-	<a :href="url" target="_blank">click me</a>
-</div>
+				<a :href="url" target="_blank">click me</a>
+			</div>
+		</div>
+		<div class="col-6">
+			<div id="app2">
+				<input class="border" type="text" v-model="newTodo" v-on:keyup.enter="addTodo">
+				<ul>
+					<li v-for="todo of todos">
+						<span> {{ todo.msg }} </span>
+						<span v-on:click="removeTodo($index)">X</span>
+					</li>
+				</ul>
 
-<div id="app2">
-	<input class="border" type="text" v-model="newTodo" v-on:keyup.enter="addTodo">
-	<ul>
-		<li v-for="todo of todos">
-			<span> {{ todo.text }} </span>
-			<span v-on:click="removeTodo($index)">X</span>
-		</li>
-	</ul>
+				<input class="border" type="text" v-model="a">
+				<p>b: {{b}} </p>
 
-	<input class="border" type="text" v-model="a">
-	<p>b: {{b}} </p>
+				First Name:
+				<input class="border" type="text" v-model="firstName">
+				<br> Last Name:
+				<input class="border" type="text" v-model="lastName">
+				<br> Full Name:
+				<input class="border" type="text" v-model="fullName">
+				<br>
+				<button class="btn" @click="setFullName()">set fullname</button>
 
-	First Name:
-	<input class="border" type="text" v-model="firstName">
-	<br> Last Name:
-	<input class="border" type="text" v-model="lastName">
-	<br> Full Name:
-	<input class="border" type="text" v-model="fullName">
-	<br>
-	<button class="btn" @click="setFullName()">set fullname</button>
+				<div class="static" :class="classObject">classObjext</div>
 
-	<div class="static" :class="classObject">classObjext</div>
+				<div class="border" :style="styleObject"></div>
 
-	<div class="border" :style="styleObject"></div>
+				<!-- <h1 v-if="flag"> I can show</h1> -->
+				<h1 v-show="!flag"> I can show</h1>
+				<h1 v-else> I can't show</h1>
 
-	<!-- <h1 v-if="flag"> I can show</h1> -->
-	<h1 v-show="!flag"> I can show</h1>
-	<h1 v-else> I can't show</h1>
+				<template v-if="!flag">
+					<h1>Title</h1>
+					<p>Paragraph 1</p>
+					<p>Paragraph 2</p>
+				</template>
 
-	<template v-if="!flag">
-		<h1>Title</h1>
-		<p>Paragraph 1</p>
-		<p>Paragraph 2</p>
-	</template>
+				<div v-for="(todo, index) in todos">
+					{{index}} - {{todo.msg}}
+				</div>
 
-	<div v-for="(todo, index) in todos">
-		{{index}} - {{todo.text}}
+				<div v-for="todo of todos">
+					{{todo.msg}}
+				</div>
+
+				<ul>
+					<template v-for="(todo, index) in todos">
+						<span> {{index}} </span>
+						<span> {{todo.msg}} </span>
+					</template>
+				</ul>
+
+				<!-- throw a error when use $key when v-for as this way -->
+				<!-- <ul>
+					<li v-for="value in guestObj" >
+						{{ $key }}: {{value}}
+					</li>
+				</ul> -->
+
+				<div v-for="(key, value) in guestObj">
+					{{ key }}: {{value}}
+				</div>
+
+				<span v-for="num in 10">
+					{{ num }}
+				</span>
+			</div>
+		</div>
 	</div>
 
-	<div v-for="todo of todos">
-		{{todo.text}}
+	<div class="row">
+		<div class="col-6">
+			<!-- open capture mode, fire parent el first
+			<div id="app3" @click.capture="testPrevent"> -->
+			<!-- just fired when click slef, not from child
+			<div id="app3" @click.self="testPrevent"> -->
+			<div id="app3">
+				<div class="methodsAndEventHandling" @click="testPrevent">
+					<button @click="greet">greet</button>
+					<button @click="say('Hello')">say Hello</button>
+					<button @click="say('What')">say What</button>
+					<button @click="sayNativeEvent('something!', $event)">say something</button>
+					<!-- prevent browers defalt action but don't stop bubbling -->
+					<a href="http://baidu.com" @click.prevent="say('go to baidu')">baidu</a>
+					<!-- stop propagation but don't prevent brower default action -->
+					<a href="http://baidu.com" @click.stop="say('go to baidu')">baidu</a>
+					<!-- stop propagation and prevent a href target -->
+					<a href="http://baidu.com" @click.stop.prevent="say('go to baidu')">baidu</a>
+					<!-- keyup by modifiers. i.e. enter/tab/delete/esc/space/up/down/left/right -->
+					<input type="text" @keyup.enter="keyCode">
+					<!-- use costom key modifier alias. -->
+					<!-- <input type="text" @keyup.f1="keyCode"> -->
+				</div>
+
+				<div class="multline">
+					<!-- <span>message is: {{message}} </span><br>
+					<input type="text" v-model="message" placeholder="Edit me"> -->
+					<span>Multiline message is: </span>
+					<p class="pre-line"> {{message}} </p>
+					<textarea v-model="message" placeholder="add multiple line"></textarea>
+				</div>
+
+				<div class="checkboxAndMultipleCheckbox">
+					<input type="checkbox" id="checkbox" v-model="checked">
+					<label for="checkbox"> {{ checked }} </label>
+					<br>
+
+					<input type="checkbox" id="checkedAll" value="false" v-model="checkedAll">
+					<label for="checkedAll">Check All</label>
+					<input type="checkbox" class="check-item" id="edison" value="Edison" v-model="checkedName">
+					<label for="edison">Edison</label>
+					<input type="checkbox" class="check-item" id="forest" value="Forest" v-model="checkedName">
+					<label for="forest">Forest</label>
+					<input type="checkbox" class="check-item" id="tanaka" value="Tanaka" v-model="checkedName">
+					<label for="tanaka">Tanaka</label>
+					<br>
+					<span>Checked names: {{checkedName}} </span>
+				</div>
+
+				<div class="radio">
+					<input type="radio" id="one" value="One" v-model="picked">
+					<label for="one"> One </label>
+					<input type="radio" id="two" value="Two" v-model="picked">
+					<label for="two"> Two </label>
+					<br>
+					<span>Picked: {{picked}} </span>
+				</div>
+
+				<div class="selectAndMultipleSelect">
+					<!-- <select v-model="selected"> -->
+					<select v-model="selected" multiple>
+						<option selected>A</option>
+						<option >B</option>
+						<option >C</option>
+						<option >D</option>
+					</select>
+					<span>Selected: {{selected}} </span>
+					<br>
+					<select v-model="selectedItem">
+						<option v-for="option in options" :value="option.value">
+							{{option.text}}
+						</option>
+					</select>
+					<span>Selected item: {{selectedItem}} </span>
+				</div>
+
+				<!-- All of this param is not work at v 2.x.x -->
+				<div class="params">
+					<!-- synced after "change" instead of "input" -->
+					<!-- <input v-model="lazyMsg" lazy> -->
+					<!-- <input v-model="lazyMsg" number> -->
+					<input v-model="lazyMsg" debounce="1000">
+					<span>type of message: {{lazyMsg + 1}} </span>
+					<br>
+					<span>Lazy message: {{lazyMsg}} </span>
+				</div>
+		</div>
+		<div class="col-6">
+
+		</div>
 	</div>
-
-	<ul>
-		<template v-for="(todo, index) in todos">
-			<span> {{index}} </span> <span> {{todo.text}} </span>
-		</template>
-	</ul>
-
-	<!-- throw a error when use $key when v-for as this way -->
-	<!-- <ul>
-		<li v-for="value in guestObj" >
-			{{ $key }}: {{value}}
-		</li>
-	</ul> -->
-
-	<div v-for="(key, value) in guestObj" >
-		{{ key }}: {{value}}
-	</div>
-
-	<span v-for="num in 10">
-		{{ num }}
-	</span>
-</div>
-
-<!-- open capture mode, fire parent el first
-<div id="app3" @click.capture="testPrevent"> -->
-
-<!-- just fired when click slef, not from child
-<div id="app3" @click.self="testPrevent"> -->
-
-<div id="app3" @click="testPrevent"> 
-	<button @click="greet">greet</button>
-	<button @click="say('Hello')">say Hello</button>
-	<button @click="say('What')">say What</button>
-	<button @click="sayNativeEvent('something!', $event)">say something</button>
-	<!-- prevent browers defalt action but don't stop bubbling -->
-	<a href="http://baidu.com" @click.prevent="say('go to baidu')">baidu</a> 
-	<!-- stop propagation but don't prevent brower default action -->
-	<a href="http://baidu.com" @click.stop="say('go to baidu')">baidu</a>
-	<!-- stop propagation and prevent a href target -->
-	<a href="http://baidu.com" @click.stop.prevent="say('go to baidu')">baidu</a>
-	<!-- keyup by modifiers. i.e. enter/tab/delete/esc/space/up/down/left/right -->
-	<input type="text" @keyup.enter="keyCode">
-	<!-- use costom key modifier alias. -->
-	<!-- <input type="text" @keyup.f1="keyCode"> -->
 </div>
