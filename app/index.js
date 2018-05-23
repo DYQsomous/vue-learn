@@ -362,3 +362,120 @@ var app3 = new Vue({
 // app3.greet();
 // Add custom key modifiers alias.
 // Vue.directive('on').keyCodes.f1 = 112;
+
+var MyComponent = Vue.extend({
+  template: '<div> A custom component 1</div>'
+})
+
+// Vue.component('my-component', MyComponent);
+var parent = Vue.extend({
+  template: '<my-component></my-component>',
+  components: {
+    'my-component': MyComponent,
+  }
+})
+Vue.component('parent', parent);
+
+var TestComponent = Vue.extend({
+  template: '<test-compt></test-compt>',
+  replace: false,
+  components: {
+    'test-compt': {
+      template: '<h1>Hello World 1</h1>'
+    }
+  }
+})
+Vue.component('test-component', TestComponent);
+
+Vue.component('test-props', {
+  props: ['msg', 'myMessage', 'myContent', 'num', 'number'],
+  template: `<span> {{msg}} {{myMessage}} {{myContent}} {{num +1}} {{number + 1}} </span>`
+})
+
+Vue.component('test-bindtype', {
+  // props: ['msg'],
+  props: {
+    'msg': {
+      type: Boolean,
+      twoWay: false,
+    },
+    // basic type check (`null` means accept any type)
+    propA: Number,
+    // multiple possible types (1.0.21+)
+    propM: [String, Number],
+    // a required string
+    propB: {
+      type: String,
+      required: true
+    },
+    // a number with default value
+    propC: {
+      type: Number,
+      default: 100
+    },
+    // object/array defaults should be returned from a
+    // factory function
+    propD: {
+      type: Object,
+      default: function () {
+        return { msg: 'hello' }
+      }
+    },
+    // indicate this prop expects a two-way binding. will
+    // raise a warning if binding type does not match.
+    propE: {
+      twoWay: true
+    },
+    // custom validator function
+    propF: {
+      validator: function (value) {
+        return value > 10
+      }
+    },
+    // coerce function (new in 1.0.12)
+    // cast the value before setting it on the component
+    propG: {
+      coerce: function (val) {
+        return val + '' // cast the value to string
+      }
+    },
+    propH: {
+      coerce: function (val) {
+        return JSON.parse(val) // cast the value to Object
+      }
+    }
+  },
+  methods: {
+    showMsg: function () {
+      this.msg = true;
+      this.$emit('update:msg', this.msg)
+    },
+    hideMsg: function () {
+      this.msg = false;
+      this.$emit('update:msg', this.msg)
+    }
+  },
+  template: `
+    <div>
+      <p>Show the message? {{msg}} </p>
+      <div v-if="msg">
+        <button @click="showMsg">Show message</button>
+        <button @click="hideMsg">Hide message</button>
+      </div>
+    </div>`,
+})
+var app4 = new Vue({
+  el: '#app4',
+  data: {
+    msgCotent: 'World!',
+    msgFlag: true,
+  },
+  methods: {
+    showChildMsg: function () {
+      this.msgFlag = true;
+    },
+    hideChildMsg: function () {
+      this.msgFlag= false;
+    }
+  }
+})

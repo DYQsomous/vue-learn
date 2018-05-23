@@ -174,9 +174,23 @@
 					<br>
 					<span>Lazy message: {{lazyMsg}} </span>
 				</div>
+			</div>
 		</div>
 		<div class="col-6">
-
+			<div id="app4">
+				<!-- <my-component></my-component> -->
+				<parent></parent>
+				<test-component></test-component>
+				<test-props msg="Hello" my-message="Vue" :my-content="msgCotent" num="1" :number="1"></test-props>
+				<br>
+				<test-bindtype :msg="msgFlag"></test-bindtype>
+				<test-bindtype :msg.sync="msgFlag"></test-bindtype>
+				<!-- Just worked a version 1.x, but not work at 2.x^ -->
+				<!-- <test-bindtype :msg.once="msgFlag"></test-bindtype> -->
+				<p>Is child message show? {{msgFlag}} </p>
+				<button @click="showChildMsg" >Show Child message</button>
+				<button @click="hideChildMsg" >Hide Child message</button>
+			</div>
 		</div>
 	</div>
 </div>
