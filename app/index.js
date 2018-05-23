@@ -400,6 +400,7 @@ Vue.component('test-bindtype', {
       twoWay: false,
     },
     // basic type check (`null` means accept any type)
+    // String/Number/Boolean/Function/Object/Array
     propA: Number,
     // multiple possible types (1.0.21+)
     propM: [String, Number],
@@ -445,12 +446,22 @@ Vue.component('test-bindtype', {
       }
     }
   },
+  computed: {
+    parent: function () {
+      return this.$parent;
+    },
+    root: function () {
+      return this.$root;
+    }
+  },
   methods: {
     showMsg: function () {
+      console.log(this.parent); 
       this.msg = true;
       this.$emit('update:msg', this.msg)
     },
     hideMsg: function () {
+      console.log(this.root);
       this.msg = false;
       this.$emit('update:msg', this.msg)
     }
@@ -470,8 +481,15 @@ var app4 = new Vue({
     msgCotent: 'World!',
     msgFlag: true,
   },
+  computed: {
+    children: function () {
+      return this.$children;
+    }
+  },
   methods: {
     showChildMsg: function () {
+      console.log(this.children);
+      
       this.msgFlag = true;
     },
     hideChildMsg: function () {
