@@ -464,6 +464,11 @@ Vue.component('test-bindtype', {
       console.log(this.root);
       this.msg = false;
       this.$emit('update:msg', this.msg)
+    },
+    emitShow: function () {
+      //In vue2.0 the event $dispatch and $broadcast is deprecated.
+      // this.$dispatch('child-msg', this.msg)
+      this.$emit('child-msg', [this.msg, !this.msg])
     }
   },
   template: `
@@ -473,8 +478,10 @@ Vue.component('test-bindtype', {
         <button @click="showMsg">Show message</button>
         <button @click="hideMsg">Hide message</button>
       </div>
+      <button @click="emitShow">Emit Show</button>
     </div>`,
 })
+
 var app4 = new Vue({
   el: '#app4',
   data: {
@@ -489,11 +496,19 @@ var app4 = new Vue({
   methods: {
     showChildMsg: function () {
       console.log(this.children);
-      
       this.msgFlag = true;
     },
     hideChildMsg: function () {
       this.msgFlag= false;
+    },
+    handleIt: function (msg) {
+      console.log('chold-msg: ', msg);
+    }
+  },
+  events: {
+    //In vue2.0 the event $dispatch and $broadcast is deprecated.
+    'child-msg': function (msg) {
+      console.log('chold-msg: ', msg);
     }
   }
 })
