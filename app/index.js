@@ -487,11 +487,25 @@ var app4 = new Vue({
   data: {
     msgCotent: 'World!',
     msgFlag: true,
+    items: [],
+  },
+  created() {
+    this.loadData();
+  },
+  mounted() {
+    console.log('this.$refs', this.$refs);
+    console.log('this.$refs.ul', this.$refs.ul);
+    // console.log('getElementById', document.querySelector('li_1'));
+    console.log('this.$refs.btns', this.$refs.btns);
+    console.log('this.$refs.btns.msg', this.$refs.btns.msg);
+    // console.log(this.$refs.ul.getElementByTagName('li'))
+    // console.log(this.$refs.li[1])
+    // this.$refs.li[1].scrollIntoView();
   },
   computed: {
     children: function () {
       return this.$children;
-    }
+    },
   },
   methods: {
     showChildMsg: function () {
@@ -503,7 +517,13 @@ var app4 = new Vue({
     },
     handleIt: function (msg) {
       console.log('chold-msg: ', msg);
-    }
+    },
+    loadData() {
+      let _this = this;
+      setTimeout(function () {
+        _this.items = [{ id: '1', name: 'bar1' }, { id: '2', name: 'bar2' }];
+      }, 500);
+    },
   },
   events: {
     //In vue2.0 the event $dispatch and $broadcast is deprecated.

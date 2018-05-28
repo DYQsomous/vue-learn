@@ -184,12 +184,16 @@
 				<test-props msg="Hello" my-message="Vue" :my-content="msgCotent" num="1" :number="1"></test-props>
 				<br>
 				<test-bindtype :msg="msgFlag"></test-bindtype>
-				<test-bindtype :msg.sync="msgFlag" @child-msg="handleIt"></test-bindtype>
+				<test-bindtype :msg.sync="msgFlag" @child-msg="handleIt" ref="btns"></test-bindtype>
 				<!-- Just worked a version 1.x, but not work at 2.x^ -->
 				<!-- <test-bindtype :msg.once="msgFlag"></test-bindtype> -->
 				<p>Is child message show? {{msgFlag}} </p>
 				<button @click="showChildMsg" >Show Child message</button>
 				<button @click="hideChildMsg" >Hide Child message</button>
+
+				<ul ref="ul">
+					<li v-for="item in items" ref="li" :id="'li_'+item.id">{{item.id}}: {{item.name}} </li>
+				</ul>
 			</div>
 		</div>
 	</div>
